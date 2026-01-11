@@ -84,8 +84,8 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
-const eventRoutes = require('./routes/eventRoutes');
-const notificationRoutes = require('./routes/notificationRoutes');
+// const eventRoutes = require('./routes/eventRoutes');
+// const notificationRoutes = require('./routes/notificationRoutes');
 
 const app = express();
 
@@ -136,8 +136,8 @@ app.get("/test", (req, res) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/events', eventRoutes);
-app.use('/api/notifications', notificationRoutes);
+// app.use('/api/events', eventRoutes);
+// app.use('/api/notifications', notificationRoutes);
 
 // ❌ NO app.listen()
 
