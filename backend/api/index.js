@@ -1,3 +1,7 @@
+// api/index.js
+const app = require("../server"); // load Express app first
+
+// Temporary route to test environment variables
 app.get("/env", (req, res) => {
   res.json({
     MONGODB_URI: process.env.MONGODB_URI ? "OK" : "NOT SET",
@@ -5,6 +9,4 @@ app.get("/env", (req, res) => {
   });
 });
 
-
-const app = require("../server");
 module.exports = app;
