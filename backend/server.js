@@ -84,8 +84,6 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
-// const eventRoutes = require('./routes/eventRoutes');
-// const notificationRoutes = require('./routes/notificationRoutes');
 
 const app = express();
 
@@ -95,50 +93,55 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Logger
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
+  console.log(req.method, req.url);
   next();
 });
 
-// MongoDB connection (serverless safe)
-let cached = global.mongoose;
+// ----------------- MongoDB (Vercel Safe) -----------------
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
+let cached = global.mongoose;
+if (!cached) cached = global.mongoose = { conn: null, promise: null };
 
 async function connectDB() {
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }).then((mongoose) => {
-      return mongoose;
-    });
+    cached.promise = mongoose
+      .connect(process.env.MONGODB_URI)   // ❗ No deprecated options
+      .then((mongoose) => {
+        console.log("MongoDB Connected");
+        return mongoose;
+      })
+      .catch(err => {
+        console.error("MongoDB Error:", err);
+        throw err;
+      });
   }
 
   cached.conn = await cached.promise;
   return cached.conn;
 }
 
-// Connect before handling requests
+// Connect before every request
 app.use(async (req, res, next) => {
-  await connectDB();
-  next();
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ error: "Database connection failed" });
+  }
 });
 
-// Test route
+// ----------------- Routes -----------------
+
 app.get("/test", (req, res) => {
   res.json({ message: "FarmTrade backend is working" });
 });
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
-// app.use('/api/events', eventRoutes);
-// app.use('/api/notifications', notificationRoutes);
 
-// ❌ NO app.listen()
+// ❌ DO NOT use app.listen()
+// Vercel handles the server
 
 module.exports = app;
