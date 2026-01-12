@@ -77,27 +77,26 @@
 
 // vercel deployment version setup code.
 
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
 
-const authRoutes = require('./routes/auth');
-const productRoutes = require('./routes/products');
+const authRoutes = require("./routes/auth");
+const productRoutes = require("./routes/products");
 
 const app = express();
 
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-// Logger
 app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
 });
 
-// ----------------- MongoDB (Vercel Safe) -----------------
+// ---------- MongoDB (Vercel safe) ----------
 
 let cached = global.mongoose;
 if (!cached) cached = global.mongoose = { conn: null, promise: null };
@@ -106,42 +105,37 @@ async function connectDB() {
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
-    cached.promise = mongoose
-      .connect(process.env.MONGODB_URI)   // ❗ No deprecated options
-      .then((mongoose) => {
-        console.log("MongoDB Connected");
-        return mongoose;
-      })
-      .catch(err => {
-        console.error("MongoDB Error:", err);
-        throw err;
-      });
+    cached.promise = mongoose.connect(process.env.MONGODB_URI).then((m) => {
+      console.log("MongoDB Connected");
+      return m;
+    });
   }
 
   cached.conn = await cached.promise;
   return cached.conn;
 }
 
-// Connect before every request
 app.use(async (req, res, next) => {
   try {
     await connectDB();
     next();
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Database connection failed" });
   }
 });
 
-// ----------------- Routes -----------------
+// ---------- Routes ----------
+
+app.get("/", (req, res) => {
+  res.send("FarmTrade Backend is Live 🚀");
+});
 
 app.get("/test", (req, res) => {
   res.json({ message: "FarmTrade backend is working" });
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-
-// ❌ DO NOT use app.listen()
-// Vercel handles the server
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 module.exports = app;
