@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const CartContext = createContext();
-const API_URL = 'https://farm-trade-hazel.vercel.app/api';
+const API_URL = 'https://farm-trade-backend.vercel.app/api';
 
 export const useCart = () => useContext(CartContext);
 

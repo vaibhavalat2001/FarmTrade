@@ -6,7 +6,7 @@ import ProductDetailPage from './ProductDetailPage';
 import { translations } from './translations';
 import { CartProvider, useCart } from './CartContext';
 
-const API_URL = 'https://farm-trade-hazel.vercel.app/api';
+const API_URL = 'https://farm-trade-backend.vercel.app/api';
 
 function HomePage() {
   const navigate = useNavigate();
