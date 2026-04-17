@@ -257,7 +257,6 @@ function HomePage() {
   const resendOtp = () => {
     const mobile = document.getElementById('signupMobile').value;
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedOtp(otp);
     setOtpTimer(120);
     alert(`OTP resent to ${mobile}. Your OTP is: ${otp} (Demo)`);
   };
