@@ -56,6 +56,7 @@ function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [productImagePreview, setProductImagePreview] = useState(null);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -683,16 +684,21 @@ function HomePage() {
       <header className={showProfileModal || showCartPage || showOrdersPage ? 'profile-header' : ''} style={{position: 'sticky', top: 0, left: 0, right: 0, zIndex: 1000, transition: 'all 0.3s ease', overflow: 'visible'}}>
         <nav className="navbar">
           <div className="nav-brand">
+            <button className={`hamburger ${showMobileMenu ? 'active' : ''}`} onClick={() => setShowMobileMenu(!showMobileMenu)}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
             <a href="#home" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }}>🌾FarmTrade</a>
           </div>
-          <ul className="nav-menu">
-            <li><a href="#home" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.home}</a></li>
-            <li><a href="#products" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('products')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.products}</a></li>
-            <li><a href="#sell" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('sell')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.sell}</a></li>
-            <li><a href="#about" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('about')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.about}</a></li>
-            <li><a href="#contact" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.contact}</a></li>
-          </ul>
-          <div className="navbar-right">
+          <div className="nav-center">
+            <ul className={`nav-menu ${showMobileMenu ? 'active' : ''}`}>
+              <li><a href="#home" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.home}</a></li>
+              <li><a href="#products" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('products')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.products}</a></li>
+              <li><a href="#sell" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('sell')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.sell}</a></li>
+              <li><a href="#about" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('about')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.about}</a></li>
+              <li><a href="#contact" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.contact}</a></li>
+            </ul>
             <div className="search-bar">
               <div className="search-container">
                 <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -702,6 +708,8 @@ function HomePage() {
                 <input type="text" placeholder={t.searchProducts} value={searchQuery} onChange={handleSearch} onKeyDown={(e) => { if(e.key === 'Enter' && displayedProducts.length > 0) { if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('products')?.scrollIntoView({behavior: 'smooth'}), 100); } }} />
               </div>
             </div>
+          </div>
+          <div className="navbar-right">
             <button className="cart-icon" title="Cart" onClick={() => { 
               if (!authToken) {
                 alert('Please login to view cart');

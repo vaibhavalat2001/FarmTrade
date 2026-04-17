@@ -10,6 +10,7 @@ function Navbar({ setShowLoginModal, setShowSignupModal, setShowCartModal, setSh
   const [showLangDropdown, setShowLangDropdown] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [menuActive, setMenuActive] = useState(false);
   const authToken = localStorage.getItem('authToken');
   const user = JSON.parse(localStorage.getItem('user') || 'null');
 
@@ -43,9 +44,14 @@ function Navbar({ setShowLoginModal, setShowSignupModal, setShowCartModal, setSh
     <header>
       <nav className="navbar">
         <div className="nav-brand">
+          <button className={`hamburger ${menuActive ? 'active' : ''}`} onClick={() => setMenuActive(!menuActive)}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
           <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>🌾FarmTrade</a>
         </div>
-        <ul className="nav-menu">
+        <ul className={`nav-menu ${menuActive ? 'active' : ''}`}>
           <li><a href="/#home" onClick={(e) => { e.preventDefault(); navigate('/'); }}>{ t.home}</a></li>
           <li><a href="/#products" onClick={(e) => { e.preventDefault(); navigate('/'); setTimeout(() => document.getElementById('products')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.products}</a></li>
           <li><a href="/#sell" onClick={(e) => { e.preventDefault(); navigate('/'); setTimeout(() => document.getElementById('sell')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.sell}</a></li>

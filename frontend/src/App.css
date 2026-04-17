@@ -41,6 +41,7 @@ header {
     z-index: 1000;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(45, 74, 43, 0.3);
+    min-height: 70px;
 }
 
 .navbar {
@@ -52,16 +53,26 @@ header {
     padding: 0 14px;
     box-sizing: border-box;
     position: static;
+    min-width: max-content;
+    white-space: nowrap;
 }
 
 .navbar.profile-navbar {
     min-width: max-content;
 }
 
+.nav-center {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
 .navbar-right {
     display: flex;
     align-items: center;
+    flex-direction: end;
     gap: 0.6rem;
+    overflow: visible;
 }
 
 .nav-brand a {
@@ -88,6 +99,42 @@ header {
 
 .nav-menu a:hover {
     color: #4CAF50;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
 }
 
 .search-bar {
@@ -266,6 +313,17 @@ header {
     overflow: visible;
     position: relative;
     z-index: 1002;
+}
+
+.auth-buttons > div {
+    position: relative;
+    z-index: 1002;
+}
+
+.auth-buttons > div > div {
+    z-index: 1003 !important;
+    max-height: none !important;
+    overflow: visible !important;
 }
 
 .btn-login, .btn-signup {
@@ -1212,4 +1270,197 @@ footer {
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+@media (max-width: 900px) {
+    /* body {
+        min-width: 900px;
+        overflow-x: auto;
+    } */
+
+    header {
+        padding: 1rem;
+        min-height: 60px;
+    }
+    
+
+    .hamburger {
+        display: flex;
+        justify-content: center;
+        flex-shrink: 0;
+        min-height: 50px;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .hamburger span {
+        width: 30px;
+        height: 4px;
+    }
+    
+    .navbar {
+        padding: 0;
+        gap: 0;
+        min-width: 900px;
+        min-height: 50px;
+        column-gap: 0;
+        justify-content: space-between;
+    }
+    
+    .nav-brand {
+        flex: none;
+        flex-shrink: 0;
+        margin: 0;
+        margin-left: 1rem;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 0;
+    }
+    
+    .nav-brand a {
+        font-size: 1.5rem;
+        line-height: 1.8rem;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .nav-center {
+        gap: 1.2rem;
+        margin-right: 0.3rem;
+    }
+    
+    .navbar-right {
+        column-gap: 0.5rem;
+        gap: 0.3rem;
+        flex-shrink: 0;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    
+    .search-bar {
+        max-width: 180px;
+        min-width: 150px;
+        flex-shrink: 0;
+        margin-left: 1rem;
+    }
+    
+    .search-bar input {
+        /* padding: 0.8rem; */
+        font-size: 1rem;
+    }
+    
+    .search-container {
+        /* min-height: 50px; */
+    }
+    
+    .cart-icon {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.5rem !important;
+        flex-shrink: 0;
+    }
+    
+    .current-lang {
+        padding: 0.7rem 0.8rem !important;
+        font-size: 1rem !important;
+        flex-shrink: 0;
+        min-height: 50px;
+    }
+    
+    .flag-img {
+        width: 24px !important;
+        height: 18px !important;
+    }
+    
+    .btn-login {
+        padding: 0.8rem 1.3rem !important;
+        font-size: 1rem !important;
+        flex-shrink: 0;
+        /* min-height: 50px; */
+    }
+    
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: linear-gradient(135deg, #2d5a2d 0%, #4a7c59 100%);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding: 2rem 0;
+        gap: 2rem;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-menu li {
+        margin: 0;
+    }
+    
+    .nav-menu a {
+        font-size: 1.2rem;
+        padding: 1rem;
+        display: block;
+    }
+}
+
+@media (max-width: 700px) {
+    .search-bar {
+        max-width: 120px !important;
+        min-width: 100px !important;
+    }
+    
+    .search-bar input {
+        padding: 0.6rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .search-container {
+        min-height: 40px !important;
+    }
+    
+    .search-icon {
+        width: 16px !important;
+        height: 16px !important;
+        margin-left: 8px !important;
+    }
+    
+    .cart-icon {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.5rem !important;
+        min-width: 50px !important;
+    }
+    
+    .current-lang {
+        padding: 0.7rem 0.8rem !important;
+        font-size: 1rem !important;
+        min-height: 50px !important;
+    }
+    
+    .flag-img {
+        width: 24px !important;
+        height: 18px !important;
+    }
+    
+    .btn-login {
+        padding: 0.8rem 1.3rem !important;
+        font-size: 1rem !important;
+        min-height: 50px !important;
+        min-width: fit-content !important;
+    }
+}
+
+
+/* User Menu Dropdown Fix */
+.auth-buttons > div > div > button {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
 }
