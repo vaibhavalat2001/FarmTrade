@@ -10,7 +10,7 @@ const API_URL = 'https://farm-trade-backend.vercel.app/api';
 function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { cart, addToCart, removeFromCart, updateQuantity, getCartTotal, getCartCount } = useCart();
+  const { cart, addToCart, removeFromCart, updateQuantity, getCartTotal } = useCart();
   const [allProducts, setAllProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
