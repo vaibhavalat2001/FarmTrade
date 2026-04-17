@@ -137,10 +137,10 @@ header {
     transform: rotate(45deg) translate(-5px, -6px);
 }
 
-.search-bar {
-    /* max-width: 220px;
-    min-width: 180px; */
-}
+/* .search-bar {
+     max-width: 220px;
+    min-width: 180px;
+} */
 
 .search-container {
     position: relative;
