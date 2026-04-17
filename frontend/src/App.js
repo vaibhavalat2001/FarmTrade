@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import { initialProducts } from './productsData';
@@ -11,8 +11,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'https://farm-trade-backend.ver
 
 function HomePage() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { cart, getCartCount, removeFromCart, updateQuantity, getCartTotal, setCart } = useCart();
+  const { cart, getCartCount, updateQuantity, getCartTotal, setCart } = useCart();
   const [products, setProducts] = useState(initialProducts);
   const [displayedProducts, setDisplayedProducts] = useState(initialProducts);
   const [language, setLanguage] = useState(localStorage.getItem('language') || 'en');
@@ -25,12 +24,10 @@ function HomePage() {
   const [showCartPage, setShowCartPage] = useState(false);
   const [authToken, setAuthToken] = useState(localStorage.getItem('authToken'));
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || 'null'));
-  const [generatedOtp, setGeneratedOtp] = useState('');
   const [showOtpField, setShowOtpField] = useState(false);
   const [showFarmerIdField, setShowFarmerIdField] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [otpTimer, setOtpTimer] = useState(0);
@@ -54,21 +51,11 @@ function HomePage() {
   const [showMobileChangePassword, setShowMobileChangePassword] = useState(false);
   const [orders, setOrders] = useState(JSON.parse(localStorage.getItem('orders') || '[]'));
   const [showAddressModal, setShowAddressModal] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [productImagePreview, setProductImagePreview] = useState(null);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   useEffect(() => {
     fetchProducts();
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
   useEffect(() => {
@@ -79,6 +66,20 @@ function HomePage() {
   }, [otpTimer]);
 
   useEffect(() => {
+    const handleSearchWithQuery = (query) => {
+      if (!Array.isArray(products)) return;
+      if (query === '') {
+        setDisplayedProducts(products);
+      } else {
+        const filtered = products.filter(p => 
+          p.name.toLowerCase().includes(query) ||
+          p.category.toLowerCase().includes(query) ||
+          p.location.toLowerCase().includes(query)
+        );
+        setDisplayedProducts(filtered);
+      }
+    };
+    
     const storedQuery = localStorage.getItem('searchQuery');
     if (storedQuery) {
       setSearchQuery(storedQuery);
@@ -153,7 +154,7 @@ function HomePage() {
   const fetchProducts = async () => {
     try {
       const response = await fetch(`${API_URL}/api/products`);
-      const data = await response.json();
+      await response.json();
       setProducts(initialProducts);
       setDisplayedProducts(initialProducts);
     } catch (error) {
@@ -212,7 +213,6 @@ function HomePage() {
       return;
     }
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedOtp(otp);
     setShowOtpField(true);
     setOtpTimer(120);
     alert(`OTP sent to ${mobile}. Your OTP is: ${otp} (Demo)`);
@@ -312,20 +312,6 @@ function HomePage() {
       return;
     }
 
-    const imageFile = e.target.productImage.files[0];
-    let imageUrl = 'https://via.placeholder.com/400x300';
-    
-    if (imageFile) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        imageUrl = reader.result;
-        submitProduct(imageUrl);
-      };
-      reader.readAsDataURL(imageFile);
-    } else {
-      submitProduct(imageUrl);
-    }
-
     const submitProduct = async (imageUrl) => {
       const formData = {
         name: e.target.productName.value,
@@ -349,7 +335,7 @@ function HomePage() {
         });
 
         if (response.ok) {
-          const newProduct = await response.json();
+          await response.json();
           await fetchProducts();
           alert('Product listed successfully!');
           e.target.reset();
@@ -362,6 +348,20 @@ function HomePage() {
         alert('Error listing product');
       }
     };
+
+    const imageFile = e.target.productImage.files[0];
+    let imageUrl = 'https://via.placeholder.com/400x300';
+    
+    if (imageFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        imageUrl = reader.result;
+        submitProduct(imageUrl);
+      };
+      reader.readAsDataURL(imageFile);
+    } else {
+      submitProduct(imageUrl);
+    }
   };
 
   const handleBuyNow = () => {
@@ -643,7 +643,7 @@ function HomePage() {
     }
   };
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmitFunc = (e) => {
     if (e.key === 'Enter' && displayedProducts.length > 0) {
       setTimeout(() => {
         const productsSection = document.getElementById('products');
@@ -690,15 +690,15 @@ function HomePage() {
               <span></span>
               <span></span>
             </button>
-            <a href="#home" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }}>🌾FarmTrade</a>
+<button onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', fontSize: '1.5rem', fontWeight: 'bold'}}>🌾FarmTrade</button>
           </div>
           <div className="nav-center">
             <ul className={`nav-menu ${showMobileMenu ? 'active' : ''}`}>
-              <li><a href="#home" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.home}</a></li>
-              <li><a href="#products" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('products')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.products}</a></li>
-              <li><a href="#sell" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('sell')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.sell}</a></li>
-              <li><a href="#about" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('about')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.about}</a></li>
-              <li><a href="#contact" onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'}), 100); }}>{t.contact}</a></li>
+              <li><button onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', padding: 0}}>{t.home}</button></li>
+              <li><button onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('products')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', padding: 0}}>{t.products}</button></li>
+              <li><button onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('sell')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', padding: 0}}>{t.sell}</button></li>
+              <li><button onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('about')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', padding: 0}}>{t.about}</button></li>
+              <li><button onClick={(e) => { e.preventDefault(); setShowMobileMenu(false); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', padding: 0}}>{t.contact}</button></li>
             </ul>
             <div className="search-bar">
               <div className="search-container">
@@ -706,7 +706,7 @@ function HomePage() {
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.35-4.35"></path>
                 </svg>
-                <input type="text" placeholder={t.searchProducts} value={searchQuery} onChange={handleSearch} onKeyDown={(e) => { if(e.key === 'Enter' && displayedProducts.length > 0) { if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('products')?.scrollIntoView({behavior: 'smooth'}), 100); } }} />
+                <input type="text" placeholder={t.searchProducts} value={searchQuery} onChange={handleSearch} onKeyDown={handleSearchSubmitFunc} />
               </div>
             </div>
           </div>
@@ -1161,7 +1161,7 @@ function HomePage() {
               <h3>{t.getInTouch}</h3>
               <p>📧 <a href="mailto:farmtradehelp@gmail.com" style={{color: '#228B22', textDecoration: 'none'}}>farmtradehelp@gmail.com</a></p>
               <p>📞 <a href="tel:+919067579706" style={{color: '#228B22', textDecoration: 'none'}}>+91 9067579706</a></p>
-              <p>📍 <a href="#contact" style={{color: '#228B22', textDecoration: 'none'}}>Agricultural Hub, India</a></p>
+              <p>📍 <span style={{color: '#228B22'}}>Agricultural Hub, India</span></p>
               <p>💬 <a href="https://chat.whatsapp.com/LAGZSsFAwQZ7pMCaZnKKkN" target="_blank" rel="noopener noreferrer" style={{color: '#228B22', textDecoration: 'none'}}>WhatsApp Us</a></p>
             </div>
             <form className="contact-form" onSubmit={handleContactForm}>
@@ -1212,13 +1212,13 @@ function HomePage() {
                     </span>
                   </div>
                   <div style={{textAlign: 'right', marginTop: '0.5rem'}}>
-                    <a href="#" onClick={(e) => { e.preventDefault(); setShowLoginModal(false); setShowForgotPassword(true); }} style={{color: '#228B22', textDecoration: 'none', fontSize: '0.9rem'}}>Forgot Password?</a>
+                    <button type="button" onClick={(e) => { e.preventDefault(); setShowLoginModal(false); setShowForgotPassword(true); }} style={{background: 'none', border: 'none', color: '#228B22', cursor: 'pointer', fontSize: '0.9rem', textDecoration: 'underline', padding: 0}}>Forgot Password?</button>
                   </div>
                 </div>
                 <button type="submit" className="btn-primary" style={{display: 'block', margin: '0 auto'}}>{t.login}</button>
                 <div style={{textAlign: 'center', marginTop: '1rem'}}>
                   <span style={{color: '#666'}}>Don't have an account? </span>
-                  <a href="#" onClick={(e) => { e.preventDefault(); setIsSignupMode(true); }} style={{color: '#228B22', textDecoration: 'none', fontWeight: 'bold'}}>Sign Up</a>
+                  <button type="button" onClick={(e) => { e.preventDefault(); setIsSignupMode(true); }} style={{background: 'none', border: 'none', color: '#228B22', cursor: 'pointer', fontWeight: 'bold', textDecoration: 'underline', padding: 0}}>Sign Up</button>
                 </div>
               </form>
             ) : (
@@ -1281,7 +1281,7 @@ function HomePage() {
                 <button type="submit" className="btn-primary" style={{display: 'block', margin: '0 auto'}}>{t.signup}</button>
                 <div style={{textAlign: 'center', marginTop: '1rem'}}>
                   <span style={{color: '#666'}}>Already have an account? </span>
-                  <a href="#" onClick={(e) => { e.preventDefault(); setIsSignupMode(false); }} style={{color: '#228B22', textDecoration: 'none', fontWeight: 'bold'}}>Login</a>
+                  <button type="button" onClick={(e) => { e.preventDefault(); setIsSignupMode(false); }} style={{background: 'none', border: 'none', color: '#228B22', cursor: 'pointer', fontWeight: 'bold', textDecoration: 'underline', padding: 0}}>Login</button>
                 </div>
               </form>
             )}
