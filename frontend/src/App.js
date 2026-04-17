@@ -7,7 +7,7 @@ import { translations } from './translations';
 import { CartProvider, useCart } from './CartContext';
 
 // http://localhost:5000/api
-const API_URL = process.env.REACT_APP_API_URL || 'https://farm-trade-backend.vercel.app/';
+const API_URL = process.env.REACT_APP_API_URL || 'https://farm-trade-backend.vercel.app';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -114,7 +114,7 @@ function HomePage() {
     if (authToken && orders.length >= 0) {
       const syncOrders = async () => {
         try {
-          await fetch(`${API_URL}/auth/orders`, {
+          await fetch(`${API_URL}/api/auth/orders`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ function HomePage() {
     if (authToken && wishlist.length >= 0) {
       const syncWishlist = async () => {
         try {
-          await fetch(`${API_URL}/auth/wishlist`, {
+          await fetch(`${API_URL}/api/auth/wishlist`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ function HomePage() {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`${API_URL}/products`);
+      const response = await fetch(`${API_URL}/api/products`);
       const data = await response.json();
       setProducts(initialProducts);
       setDisplayedProducts(initialProducts);
@@ -176,7 +176,7 @@ function HomePage() {
     const password = e.target.password.value;
 
     try {
-      const response = await fetch(`${API_URL}/auth/login`, {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mobile, password })
@@ -276,7 +276,7 @@ function HomePage() {
     }
 
     try {
-      const response = await fetch(`${API_URL}/auth/register`, {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signupData)
@@ -300,7 +300,7 @@ function HomePage() {
       }
     } catch (err) {
       console.error('Error:', err);
-      alert('Cannot connect to server. Make sure backend is running on port 5000.');
+      alert('Cannot connect to server. Please try again later.');
     }
   };
 
@@ -339,7 +339,7 @@ function HomePage() {
       };
 
       try {
-        const response = await fetch(`${API_URL}/products`, {
+        const response = await fetch(`${API_URL}/api/products`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -434,7 +434,7 @@ function HomePage() {
     }
     
     try {
-      const response = await fetch(`${API_URL}/auth/update-profile`, {
+      const response = await fetch(`${API_URL}/api/auth/update-profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -462,7 +462,7 @@ function HomePage() {
       }
     } catch (err) {
       console.error('Profile update error:', err);
-      alert(language === 'en' ? 'Cannot connect to server. Please start the backend server.' : language === 'hi' ? 'सर्वर से कनेक्ट नहीं हो सका। कृपया बैकएंड सर्वर शुरू करें।' : 'सर्व्हरशी कनेक्ट होऊ शकत नाही. कृपया बॅकएंड सर्व्हर सुरू करा.');
+      alert(language === 'en' ? 'Cannot connect to server. Please try again later.' : language === 'hi' ? 'सर्वर से कनेक्ट नहीं हो सका। कृपया बाद में पुनः प्रयास करें।' : 'सर्व्हरशी कनेक्ट होऊ शकत नाही. कृपया नंतर पुन्हा प्रयत्न करा.');
     }
   };
 
@@ -489,7 +489,7 @@ function HomePage() {
       alert(language === 'en' ? 'Verification successful! You can now change your mobile number.' : language === 'hi' ? 'सत्यापन सफल! अब आप अपना मोबाइल नंबर बदल सकते हैं।' : 'सत्यापन यशस्वी! आता तुम्ही तुमचा मोबाइल नंबर बदलू शकता.');
     } else if (enteredPassword) {
       try {
-        const response = await fetch(`${API_URL}/auth/verify-password`, {
+        const response = await fetch(`${API_URL}/api/auth/verify-password`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -507,7 +507,7 @@ function HomePage() {
         }
       } catch (err) {
         console.error('Password verification error:', err);
-        alert(language === 'en' ? 'Cannot connect to server. Please start the backend server.' : language === 'hi' ? 'सर्वर से कनेक्ट नहीं हो सका।' : 'सर्व्हरशी कनेक्ट होऊ शकत नाही.');
+        alert(language === 'en' ? 'Cannot connect to server. Please try again later.' : language === 'hi' ? 'सर्वर से कनेक्ट नहीं हो सका।' : 'सर्व्हरशी कनेक्ट होऊ शकत नाही.');
       }
     } else {
       alert(language === 'en' ? 'Invalid OTP' : language === 'hi' ? 'अमान्य OTP' : 'अवैध OTP');
@@ -534,7 +534,7 @@ function HomePage() {
       
       if (finalConfirm) {
         try {
-          const response = await fetch(`${API_URL}/auth/delete-account`, {
+          const response = await fetch(`${API_URL}/api/auth/delete-account`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
