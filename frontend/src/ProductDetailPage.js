@@ -218,46 +218,59 @@ function ProductDetailPage() {
             }).length > 0 && (
               <div style={{marginBottom: '3rem'}}>
                 <h2 style={{fontSize: '2rem', marginBottom: '1.5rem', color: '#2c5530'}}>More {t.productNames[product.name] || product.name} from Other Farmers</h2>
-                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem'}}>
-                  {allProducts.filter(p => {
-                    if (!p._id || p.id === product.id || p._id === product._id) return false;
-                    const productWords = product.name.toLowerCase().split(' ');
-                    const newProductWords = p.name.toLowerCase().split(' ');
-                    return productWords.some(word => newProductWords.some(newWord => word.length >= 2 && newWord.startsWith(word.substring(0, 2))));
-                  }).map(similarProduct => (
-                    <div key={similarProduct.id || similarProduct._id} className="product-card" onClick={() => navigate(`/product/${similarProduct._id || similarProduct.id}`)} style={{cursor: 'pointer'}}>
-                      <img src={similarProduct.image} alt={similarProduct.name} className="product-image" style={{width: '100%', height: '200px', objectFit: 'cover'}} />
-                      <div className="product-info">
-                        <h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                          {t.productNames[similarProduct.name] || similarProduct.name}
-                          <span onClick={(e) => {
+                <div className="carousel-wrapper">
+                  <button className="carousel-arrow left" onClick={() => {
+                    const container = document.getElementById('similar-products-carousel');
+                    container.scrollBy({ left: -320, behavior: 'smooth' });
+                  }}>‹</button>
+                  <div className="carousel-container" id="similar-products-carousel">
+                    {allProducts.filter(p => {
+                      if (!p._id || p.id === product.id || p._id === product._id) return false;
+                      const productWords = product.name.toLowerCase().split(' ');
+                      const newProductWords = p.name.toLowerCase().split(' ');
+                      return productWords.some(word => newProductWords.some(newWord => word.length >= 2 && newWord.startsWith(word.substring(0, 2))));
+                    }).map(similarProduct => (
+                      <div key={similarProduct.id || similarProduct._id} className="product-card" onClick={() => navigate(`/product/${similarProduct._id || similarProduct.id}`)} style={{cursor: 'pointer'}}>
+                        <img src={similarProduct.image} alt={t.productNames[similarProduct.name] || similarProduct.name} className="product-image" />
+                        <div className="product-info">
+                          <h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                            {t.productNames[similarProduct.name] || similarProduct.name}
+                            <span onClick={(e) => {
+                              e.stopPropagation();
+                              if (!authToken) {
+                                alert('Please login to add items to wishlist');
+                                setShowLoginModal(true);
+                                return;
+                              }
+                              const isInWishlist = wishlist.some(item => (item.id || item._id) === (similarProduct.id || similarProduct._id));
+                              const newWishlist = isInWishlist ? wishlist.filter(item => (item.id || item._id) !== (similarProduct.id || similarProduct._id)) : [...wishlist, similarProduct];
+                              setWishlist(newWishlist);
+                              localStorage.setItem('wishlist', JSON.stringify(newWishlist));
+                            }} style={{cursor: 'pointer', fontSize: '1.2rem'}}>{wishlist.some(item => (item.id || item._id) === (similarProduct.id || similarProduct._id)) ? '❤️' : '🤍'}</span>
+                          </h3>
+                          <p className="product-price">₹{similarProduct.price}/{t.kg}</p>
+                          <p>{t.quantity}: {similarProduct.quantity} {t.kg}</p>
+                          <p className="product-location">📍 {t.locations[similarProduct.location] || similarProduct.location}</p>
+                          <p>{t.farmer}: {t.farmerNames[similarProduct.farmerName] || similarProduct.farmerName}</p>
+                          <button className="buy-btn" onClick={(e) => {
                             e.stopPropagation();
                             if (!authToken) {
-                              alert('Please login to add items to wishlist');
+                              alert('Please login to buy products');
                               setShowLoginModal(true);
                               return;
                             }
-                            const isInWishlist = wishlist.some(item => (item.id || item._id) === (similarProduct.id || similarProduct._id));
-                            const newWishlist = isInWishlist ? wishlist.filter(item => (item.id || item._id) !== (similarProduct.id || similarProduct._id)) : [...wishlist, similarProduct];
-                            setWishlist(newWishlist);
-                            localStorage.setItem('wishlist', JSON.stringify(newWishlist));
-                          }} style={{cursor: 'pointer', fontSize: '1.2rem'}}>{wishlist.some(item => (item.id || item._id) === (similarProduct.id || similarProduct._id)) ? '❤️' : '🤍'}</span>
-                        </h3>
-                        <p className="product-price">₹{similarProduct.price}/{t.kg}</p>
-                        <p>{t.quantity}: {similarProduct.quantity} {t.kg}</p>
-                        <p className="product-location">📍 {t.locations[similarProduct.location] || similarProduct.location}</p>
-                        <p>{t.farmer}: {t.farmerNames[similarProduct.farmerName] || similarProduct.farmerName}</p>
-                        <button className="buy-btn" onClick={(e) => {
-                          e.stopPropagation();
-                          if (!authToken) {
-                            alert('Please login to buy products');
-                            setShowLoginModal(true);
-                            return;
-                          }
-                        }}>{t.buyNow}</button>
+                            setProduct(similarProduct);
+                            setQuantity(1);
+                            setShowCheckoutModal(true);
+                          }}>{t.buyNow}</button>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                  <button className="carousel-arrow right" onClick={() => {
+                    const container = document.getElementById('similar-products-carousel');
+                    container.scrollBy({ left: 320, behavior: 'smooth' });
+                  }}>›</button>
                 </div>
               </div>
             )}
