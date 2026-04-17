@@ -174,14 +174,19 @@ router.get('/wishlist', auth, async (req, res) => {
 router.put('/wishlist', auth, async (req, res) => {
   try {
     const { wishlist } = req.body;
+    
+    // Handle empty or undefined wishlist
+    const items = wishlist || [];
+    
     await Wishlist.findOneAndUpdate(
       { userId: req.user.id },
-      { items: wishlist, updatedAt: Date.now() },
+      { items: items, updatedAt: Date.now() },
       { upsert: true }
     );
-    res.json({ message: 'Wishlist updated', wishlist });
+    res.json({ message: 'Wishlist updated', wishlist: items });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Wishlist update error:', err);
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
 
@@ -215,16 +220,32 @@ router.post('/orders', auth, async (req, res) => {
 router.put('/orders', auth, async (req, res) => {
   try {
     const { orders } = req.body;
+    
+    // If orders array is empty or undefined, just return success
+    if (!orders || orders.length === 0) {
+      return res.json({ message: 'No orders to update' });
+    }
+    
+    // Update each order
     for (const order of orders) {
-      await Order.findOneAndUpdate(
-        { userId: req.user.id, orderId: order.id.toString() },
-        { status: order.status },
-        { upsert: true }
-      );
+      if (order.id) {
+        await Order.findOneAndUpdate(
+          { userId: req.user.id, orderId: order.id.toString() },
+          { 
+            items: order.items,
+            total: order.total,
+            address: order.address,
+            payment: order.payment,
+            status: order.status 
+          },
+          { upsert: true }
+        );
+      }
     }
     res.json({ message: 'Orders updated', orders });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Orders update error:', err);
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
 
