@@ -89,7 +89,11 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://farm-trade-backend.vercel.app'],
+  origin: [
+    'http://localhost:3000',
+    'https://farm-trade-backend.vercel.app',
+    'https://farm-trade-project.vercel.app'
+  ],
   credentials: true,
   optionsSuccessStatus: 200
 };
