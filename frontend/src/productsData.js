@@ -5,7 +5,7 @@ export const initialProducts = [
         category: "vegetables",
         price: 40,
         quantity: 100,
-        location: "Maharashtra, Yavatmal",
+        location: "Maharashtra",
         farmerName: "Suresh Gore",
         image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
     },
@@ -36,7 +36,7 @@ export const initialProducts = [
         price: 30,
         quantity: 150,
         location: "Maharashtra",
-        farmerName: "Prakash Patil",
+        farmerName: "Prakash Alat",
         image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=300&fit=crop"
     },
     {
@@ -45,7 +45,7 @@ export const initialProducts = [
         category: "fruits",
         price: 100,
         quantity: 75,
-        location: "Uttar Pradesh",
+        location: "Datta Popalghat",
         farmerName: "Ramesh Gupta",
         image: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&h=300&fit=crop"
     },
@@ -55,7 +55,7 @@ export const initialProducts = [
         category: "grains",
         price: 25,
         quantity: 300,
-        location: "Maharashtra, Yavatmal",
+        location: "Maharashtra",
         farmerName: "Sadanand Chavhan",
         image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop"
     },
@@ -65,8 +65,8 @@ export const initialProducts = [
         category: "vegetables",
         price: 35,
         quantity: 80,
-        location: "Karnataka",
-        farmerName: "Sunil Reddy",
+        location: "Maharashtra",
+        farmerName: "Prakash Alat",
         image: "https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
     },
     {
@@ -75,7 +75,7 @@ export const initialProducts = [
         category: "vegetables",
         price: 20,
         quantity: 60,
-        location: "Maharashtra, Yavatmal",
+        location: "Maharashtra",
         farmerName: "Bandu Bhone",
         image: "https://images.pexels.com/photos/2325843/pexels-photo-2325843.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
     },
@@ -85,8 +85,8 @@ export const initialProducts = [
         category: "vegetables",
         price: 18,
         quantity: 200,
-        location: "Uttar Pradesh",
-        farmerName: "Vikram Singh",
+        location: "Maharashtra",
+        farmerName: "Lakshman Payghan",
         image: "https://images.pexels.com/photos/144248/potatoes-vegetables-erdfrucht-bio-144248.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
     },
     {
@@ -95,7 +95,7 @@ export const initialProducts = [
         category: "vegetables",
         price: 25,
         quantity: 90,
-        location: "Maharashtra, Yavatmal",
+        location: "Maharashtra",
         farmerName: "Gajanan Alat",
         image: "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=400&h=300&fit=crop"
     },
@@ -145,8 +145,8 @@ export const initialProducts = [
         category: "organic",
         price: 300,
         quantity: 20,
-        location: "Kerala",
-        farmerName: "Suresh Nair",
+        location: "Maharashtra",
+        farmerName: "Suresh Temkar",
         image: "https://media.istockphoto.com/id/826599142/photo/honey-pouring-on-wooden-spoon-and-dripping-from-spoon.jpg?s=612x612&w=0&k=20&c=kjanD5ZY6gsQZaPujtJBXjUZaU9otnuqfsL-q41mUpI="
     },
     {
@@ -195,8 +195,8 @@ export const initialProducts = [
         category: "spices",
         price: 80,
         quantity: 40,
-        location: "Kerala",
-        farmerName: "Ravi Menon",
+        location: "Maharashtra",
+        farmerName: "Akash Gore",
         image: "https://media.istockphoto.com/id/537209849/photo/pieces-of-root-ginger-with-some-grated-in-a-dish.webp?a=1&b=1&s=612x612&w=0&k=20&c=lYB_kle3EuIniPK9FLD0cGruB_CUtywqvR3znCuj0T4="
     },
     {
@@ -205,7 +205,7 @@ export const initialProducts = [
         category: "spices",
         price: 40,
         quantity: 25,
-        location: "Yavatmal, Maharashtra",
+        location: "Maharashtra",
         farmerName: "Bhakati Alat",
         image: "https://media.istockphoto.com/id/182837666/photo/green-chillis-for-sale-at-the-market.webp?a=1&b=1&s=612x612&w=0&k=20&c=CV4NZ0SAAgiMmB50CSJiubHSs4nvqJWCer3dJoKytng="
     },
@@ -215,8 +215,8 @@ export const initialProducts = [
         category: "fruits",
         price: 25,
         quantity: 200,
-        location: "Kerala",
-        farmerName: "Anil Kumar",
+        location: "Shubham",
+        farmerName: "Alat",
         image: "https://media.istockphoto.com/id/146896572/photo/coconuts-drying-in-the-sun.jpg?s=612x612&w=0&k=20&c=YgQBfSVcTdC_WPfWRWkSGcY8ZOGZcla8bclkuTFkEhk="
     },
     {
@@ -225,8 +225,8 @@ export const initialProducts = [
         category: "fruits",
         price: 30,
         quantity: 150,
-        location: "Tamil Nadu",
-        farmerName: "Selvam R",
+        location: "Maharashtra",
+        farmerName: "Akshay Gajanan Alat",
         image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&h=300&fit=crop"
     },
     {
@@ -235,8 +235,8 @@ export const initialProducts = [
         category: "spices",
         price: 120,
         quantity: 35,
-        location: "Rajasthan",
-        farmerName: "Gopal Sharma",
+        location: "Maharashtra",
+        farmerName: "Shivaji Kanade",
         image: "https://media.istockphoto.com/id/1321265603/photo/closeup-of-organic-black-mustard-seeds-in-a-wooden-ladle-with-mustard-flowers.jpg?s=612x612&w=0&k=20&c=bEEOYDJZfyjYlXNNnXKhOefK6kSLeTmljZPfMkSo1b4="
     },
     {
@@ -245,8 +245,8 @@ export const initialProducts = [
         category: "spices",
         price: 150,
         quantity: 20,
-        location: "Gujarat",
-        farmerName: "Kiran Patel",
+        location: "Maharashtra",
+        farmerName: "Ananda Kanade",
         image: "https://media.istockphoto.com/id/155283105/photo/sesame.jpg?s=612x612&w=0&k=20&c=k-BPGpbq-TXxyQIrislr_3aLHI3tDVY-G6X0OD6p01g="
     },
     {
@@ -255,8 +255,8 @@ export const initialProducts = [
         category: "nuts",
         price: 100,
         quantity: 80,
-        location: "Andhra Pradesh",
-        farmerName: "Srinivas Rao",
+        location: "Maharashtra",
+        farmerName: "Yogesh Gore",
         image: "https://media.istockphoto.com/id/1409838431/photo/peanuts-plants.jpg?s=612x612&w=0&k=20&c=k-w0Awayu0tRZrskH5fEE0JNZWDLLW1rIPREBeiFpDM="
     },
     {
@@ -265,7 +265,7 @@ export const initialProducts = [
         category: "beverages",
         price: 300,
         quantity: 25,
-        location: "Assam",
+        location: "Maharashtra",
         farmerName: "Raman Gogoi",
         image: "https://images.unsplash.com/photo-1685430901973-d6600bcf0f55?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fHRlYSUyMGxlYXZlc3xlbnwwfHwwfHx8MA%3D%3D"
     },
@@ -275,7 +275,7 @@ export const initialProducts = [
         category: "beverages",
         price: 400,
         quantity: 15,
-        location: "Karnataka",
+        location: "Maharashtra",
         farmerName: "Mohan Gowda",
         image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop"
     },
@@ -285,8 +285,8 @@ export const initialProducts = [
         category: "spices",
         price: 1500,
         quantity: 5,
-        location: "Kerala",
-        farmerName: "Thomas Joseph",
+        location: "Maharashtra",
+        farmerName: "Om Alat",
         image: "https://media.istockphoto.com/id/518709136/photo/green-cardamom-pods-in-steel-bowl.jpg?s=612x612&w=0&k=20&c=uMfiFWLROWcsyeqG6zcUQb83nxo6VI5_o7aCQUiEmpw="
     },
     {
@@ -295,7 +295,7 @@ export const initialProducts = [
         category: "spices",
         price: 800,
         quantity: 10,
-        location: "Kerala",
+        location: "Maharashtra",
         farmerName: "Saji Kumar",
         image: "https://media.istockphoto.com/id/185067429/photo/black-pepper.jpg?s=612x612&w=0&k=20&c=bEwHRnqx1v5TwdlRSnphjChgdVxjoJLT7xtQl3pSwUw="
     },
@@ -305,8 +305,8 @@ export const initialProducts = [
         category: "vegetables",
         price: 80,
         quantity: 40,
-        location: "Karnataka",
-        farmerName: "Ravi Kumar",
+        location: "Maharashtra",
+        farmerName: "Pandu Kanade",
         image: "https://media.istockphoto.com/id/518951178/photo/fresh-raw-green-broccoli-in-bowl.jpg?s=612x612&w=0&k=20&c=wP_y_qqs6_hFVsnkE4MCHLNOOdQ11sg5MBuOjg2AygA="
     },
     {
@@ -315,8 +315,8 @@ export const initialProducts = [
         category: "vegetables",
         price: 45,
         quantity: 60,
-        location: "Punjab",
-        farmerName: "Harpreet Singh",
+        location: "Maharashtra",
+        farmerName: "Sandeep Ringe",
         image: "https://media.istockphoto.com/id/524005764/photo/cauliflower.jpg?s=612x612&w=0&k=20&c=vvjX9uu7zpVLZHExaPIfK8WcNWg6CZPqbemT5sbCv4M="
     },
     {
@@ -326,7 +326,7 @@ export const initialProducts = [
         price: 20,
         quantity: 120,
         location: "Maharashtra",
-        farmerName: "Sunil Patil",
+        farmerName: "Gajanan Alat",
         image: "https://media.istockphoto.com/id/610878486/photo/big-orange-pumpkins.jpg?s=612x612&w=0&k=20&c=x_K8RuywBTixPGBF6p0dJc8AedH3CNJFlMBAtQH1Vm0="
     },
     {
@@ -335,7 +335,7 @@ export const initialProducts = [
         category: "fruits",
         price: 15,
         quantity: 200,
-        location: "Rajasthan",
+        location: "Maharashtra",
         farmerName: "Durgesh Alat",
         image: "https://media.istockphoto.com/id/1092538100/photo/young-indian-farmer-at-watermelon-field.jpg?s=2048x2048&w=is&k=20&c=NZZ0mdIDzgLGsfYBWxaRcK9TMC20lNaSWT4iFXXFLII="
     },
@@ -345,8 +345,8 @@ export const initialProducts = [
         category: "fruits",
         price: 35,
         quantity: 80,
-        location: "Tamil Nadu",
-        farmerName: "Murugan S",
+        location: "Maharashtra",
+        farmerName: "Santosh Alat",
         image: "https://media.istockphoto.com/id/827433290/photo/fresh-papaya-juice-in-the-glass-with-papaya-fruits-leaf-and-slices.jpg?s=612x612&w=0&k=20&c=lab1QIB7cSQ9E1X0mQSfVbYPgk8yworA4DVSbIedJlY="
     },
     {
@@ -355,8 +355,8 @@ export const initialProducts = [
         category: "fruits",
         price: 60,
         quantity: 50,
-        location: "Andhra Pradesh",
-        farmerName: "Krishna Rao",
+        location: "Maharashtra",
+        farmerName: "Gajanan Chavhan",
         image: "https://media.istockphoto.com/id/513737572/photo/lemon-tree.jpg?s=612x612&w=0&k=20&c=VSFiULLg8vOm4fDZDLrNt1XUYPC7afHp4N7S0hkWVQ4="
     },
     {
@@ -365,8 +365,8 @@ export const initialProducts = [
         category: "spices",
         price: 180,
         quantity: 30,
-        location: "Gujarat",
-        farmerName: "Bharat Patel",
+        location: "Maharashtra",
+        farmerName: "Sambhaji Bhone",
         image: "https://media.istockphoto.com/id/1400803916/photo/freshly-picked-fresh-garlic-at-the-grocery-counter.jpg?s=612x612&w=0&k=20&c=UNd6eijetpoi6-L3T3LK2oGvNGQRbPWMueplHGzwQZo="
     },
     {
@@ -375,8 +375,8 @@ export const initialProducts = [
         category: "spices",
         price: 140,
         quantity: 25,
-        location: "Rajasthan",
-        farmerName: "Ram Singh",
+        location: "Maharashtra",
+        farmerName: "Pavan Bhone",
         image: "https://media.istockphoto.com/id/492493172/photo/coriander-seeds-and-powdered-coriander.jpg?s=612x612&w=0&k=20&c=7kK5xWcn2hESogt2wvjuQvwy-LnAyw5uzeMTs-xOSe0="
     },
     {
@@ -395,8 +395,8 @@ export const initialProducts = [
         category: "grains",
         price: 40,
         quantity: 150,
-        location: "Rajasthan",
-        farmerName: "Kailash Sharma",
+        location: "Maharashtra",
+        farmerName: "Someshor Alat",
         image: "https://media.istockphoto.com/id/2159058668/photo/organic-whole-pearl-millet-or-bajra-seeds-spilled-out-from-a-laying-jute-bag-with-bajra-flour.jpg?s=612x612&w=0&k=20&c=t_84_FxDMNK6VxVscZ6jUusvUbcwFkaJHw7huMNKJY4="
     },
     {
@@ -405,8 +405,8 @@ export const initialProducts = [
         category: "nuts",
         price: 600,
         quantity: 15,
-        location: "Kashmir",
-        farmerName: "Abdul Rahman",
+        location: "Maharashtra",
+        farmerName: "Gajanan Popalghat",
         image: "https://media.istockphoto.com/id/153711056/photo/almonds.jpg?s=612x612&w=0&k=20&c=Tw_DRI4aBDp64AbK1PTQ6o_GGRnhi2IcrUoMwyfD6uQ="
     },
     {
@@ -415,8 +415,8 @@ export const initialProducts = [
         category: "nuts",
         price: 800,
         quantity: 12,
-        location: "Kashmir",
-        farmerName: "Farooq Ahmad",
+        location: "Maharashtra",
+        farmerName: "Adity Nikam",
         image: "https://media.istockphoto.com/id/1397220492/photo/pile-of-ripe-walnuts-on-white-background.jpg?s=612x612&w=0&k=20&c=6Nnw_BbOYYdRmOoyUz1Fq3qeMNUgpzbij-wGXEbcSfY="
     },
     {
@@ -425,8 +425,8 @@ export const initialProducts = [
         category: "dairy",
         price: 300,
         quantity: 20,
-        location: "Punjab",
-        farmerName: "Gurpreet Singh",
+        location: "Maharashtra",
+        farmerName: "Shivaji Popalghat",
         image: "https://media.istockphoto.com/id/2209167148/photo/cubes-of-indian-paneer-cheese-on-a-wooden-board-on-a-gray-background-indian-food.jpg?s=612x612&w=0&k=20&c=1j75ZmY6RYtOdPBata06XuGVFgkUZBDc65bJMJoOaNA="
     },
     {
@@ -435,7 +435,7 @@ export const initialProducts = [
         category: "dairy",
         price: 450,
         quantity: 25,
-        location: "Rajasthan",
+        location: "Maharashtra",
         farmerName: "Laxmi Devi",
         image: "https://media.istockphoto.com/id/843658780/photo/desi-ghee-or-clariified-liquid-butter-cooking-oil-pure-ghee.jpg?s=612x612&w=0&k=20&c=euSGI7fpLfzASpGmtSZ-k60xInWvR9JGx-2iIZNyf90="
     },
@@ -445,8 +445,8 @@ export const initialProducts = [
         category: "vegetables",
         price: 50,
         quantity: 35,
-        location: "Tamil Nadu",
-        farmerName: "Raman K",
+        location: "Maharashtra",
+        farmerName: "Akshay Gajanan Alat",
         image: "https://media.istockphoto.com/id/1163094239/photo/sliced-moringa-fruits.jpg?s=612x612&w=0&k=20&c=9ZXPG4xnmCu_O8PMzf1AR3f6LfifAuo2YlBwBpNzwLY="
     }
 ];
