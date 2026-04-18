@@ -226,7 +226,7 @@ export const initialProducts = [
         price: 30,
         quantity: 150,
         location: "Maharashtra, Yavatmal",
-        farmerName: "Akshay Gajanan Alat",
+        farmerName: "Akshay Alat",
         image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&h=300&fit=crop"
     },
     {
@@ -355,8 +355,8 @@ export const initialProducts = [
         category: "fruits",
         price: 60,
         quantity: 50,
-        location: "Maharashtra",
-        farmerName: "Gajanan Chavhan, Yavatmal",
+        location: "Maharashtra, Yavatmal",
+        farmerName: "Gajanan Chavhan",
         image: "https://media.istockphoto.com/id/513737572/photo/lemon-tree.jpg?s=612x612&w=0&k=20&c=VSFiULLg8vOm4fDZDLrNt1XUYPC7afHp4N7S0hkWVQ4="
     },
     {
@@ -446,7 +446,7 @@ export const initialProducts = [
         price: 50,
         quantity: 35,
         location: "Maharashtra, Yavatmal",
-        farmerName: "Akshay Gajanan Alat",
+        farmerName: "Akshay Alat",
         image: "https://media.istockphoto.com/id/1163094239/photo/sliced-moringa-fruits.jpg?s=612x612&w=0&k=20&c=9ZXPG4xnmCu_O8PMzf1AR3f6LfifAuo2YlBwBpNzwLY="
     }
 ];
