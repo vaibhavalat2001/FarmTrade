@@ -75,6 +75,10 @@ header {
     overflow: visible;
 }
 
+.nav-brand {
+    margin: 0px 25px 0px 1rem;
+}
+
 .nav-brand a {
     color: #90EE90;
     font-weight: 700;
@@ -1250,15 +1254,10 @@ footer {
 
 @media (min-width: 1120px){
     .nav-menu {
-        gap: 3rem;
+        gap: clamp(48px, 4vw, 64px);
     }
 }
 
-@media (min-width: 1250px){
-    .nav-menu {
-        gap: 4rem;
-    }
-}
 
 /* Wishlist Sidebar Animation */
 @keyframes slideInRight {
@@ -1310,7 +1309,6 @@ footer {
     .nav-brand {
         flex: none;
         flex-shrink: 0;
-        margin: 0;
         margin-left: 1rem;
         padding: 0;
         display: flex;
@@ -1423,7 +1421,7 @@ footer {
         margin-left: 8px !important;
     } */
     
-    .cart-icon {
+    /* .cart-icon {
         width: 50px !important;
         height: 50px !important;
         font-size: 1.5rem !important;
@@ -1446,7 +1444,7 @@ footer {
         font-size: 1rem !important;
         min-height: 50px !important;
         min-width: fit-content !important;
-    }
+    } */
 }
 
 

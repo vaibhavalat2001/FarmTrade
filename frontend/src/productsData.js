@@ -126,7 +126,7 @@ export const initialProducts = [
         price: 50,
         quantity: 100,
         location: "Maharashtra, Yavatmal",
-        farmerName: "Priyanka Prakash Bhone",
+        farmerName: "Akash Bhone",
         image: "https://media.istockphoto.com/id/648345078/photo/eggplant-background.jpg?s=612x612&w=0&k=20&c=sEgk_Gk6jvqnL1b5Vrz9oGhwFZk58cTrc0uA94Q8NYI="
     },
     {
