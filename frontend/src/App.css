@@ -41,7 +41,7 @@ header {
     z-index: 1000;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(45, 74, 43, 0.3);
-    min-height: 70px;
+    min-height: 85px;
 }
 
 .navbar {
@@ -1272,7 +1272,7 @@ footer {
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     /* body {
         min-width: 900px;
         overflow-x: auto;
@@ -1280,7 +1280,7 @@ footer {
 
     header {
         padding: 1rem;
-        min-height: 60px;
+        /* min-height: 60px; */
     }
     
 
@@ -1301,7 +1301,7 @@ footer {
     .navbar {
         padding: 0;
         gap: 0;
-        min-width: 900px;
+        /* min-width: 1200px; */
         min-height: 50px;
         column-gap: 0;
         justify-content: space-between;
