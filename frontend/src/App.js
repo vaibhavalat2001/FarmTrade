@@ -414,7 +414,7 @@ function HomePage() {
     }
     
     if (paymentMethod === 'upi') {
-      const upiUrl = `upi://pay?pa=9067579706@ptyes&pn=Vaibhav Alat&am=${total}&cu=INR&tn=FarmTrade Order Payment`;
+      const upiUrl = `upi://pay?pa=vaibhavgalat123@okicici&pn=Vaibhav Alat&am=${total}&cu=INR&tn=FarmTrade Order Payment`;
       window.location.href = upiUrl;
       setShowCheckoutModal(false);
       alert(language === 'en' ? `Order placed! Please complete the payment of ₹${total} in your UPI app.` : language === 'hi' ? `ऑर्डर दिया गया! कृपया अपने UPI ऐप में ₹${total} का भुगतान पूरा करें।` : `ऑर्डर दिली! कृपया तुमच्या UPI अॅपमध्ये ₹${total} चे पेमेंट पूर्ण करा।`);
@@ -1617,7 +1617,7 @@ function HomePage() {
                       {order.status === 'Payment Pending' && order.payment === 'UPI' && (
                         <button 
                           onClick={() => {
-                            const upiUrl = `upi://pay?pa=9067579706@ptyes&pn=Vaibhav Alat&am=${order.total}&cu=INR&tn=FarmTrade Order Payment`;
+                            const upiUrl = `upi://pay?pa=vaibhavgalat123@okicici&pn=Vaibhav Alat&am=${order.total}&cu=INR&tn=FarmTrade Order Payment`;
                             window.location.href = upiUrl;
                             alert(language === 'en' ? `Please complete the payment of ₹${order.total} in your UPI app.` : language === 'hi' ? `कृपया अपने UPI ऐप में ₹${order.total} का भुगतान पूरा करें।` : `कृपया तुमच्या UPI अॅपमध्ये ₹${order.total} चे पेमेंट पूर्ण करा।`);
                           }}
@@ -1731,7 +1731,7 @@ function HomePage() {
                       {order.status === 'Payment Pending' && order.payment === 'UPI' && (
                         <button 
                           onClick={() => {
-                            const upiUrl = `upi://pay?pa=9067579706@ptyes&pn=Vaibhav Alat&am=${order.total}&cu=INR&tn=FarmTrade Order Payment`;
+                            const upiUrl = `upi://pay?pa=vaibhavgalat123@okicici&pn=Vaibhav Alat&am=${order.total}&cu=INR&tn=FarmTrade Order Payment`;
                             window.location.href = upiUrl;
                             alert(language === 'en' ? `Please complete the payment of ₹${order.total} in your UPI app.` : language === 'hi' ? `कृपया अपने UPI ऐप में ₹${order.total} का भुगतान पूरा करें।` : `कृपया तुमच्या UPI अॅपमध्ये ₹${order.total} चे पेमेंट पूर्ण करा।`);
                           }}

@@ -480,7 +480,7 @@ function ProductDetailPage() {
                 const updatedOrders = [newOrder, ...existingOrders];
                 localStorage.setItem('orders', JSON.stringify(updatedOrders));
                 
-                const upiUrl = `upi://pay?pa=9067579706@ptyes&pn=Vaibhav Alat&am=${total}&cu=INR&tn=FarmTrade Order Payment`;
+                const upiUrl = `upi://pay?pa=vaibhavgalat123@okicici&pn=Vaibhav Alat&am=${total}&cu=INR&tn=FarmTrade Order Payment`;
                 window.location.href = upiUrl;
                 
                 setShowCheckoutModal(false);
