@@ -152,11 +152,11 @@ function ProductDetailPage() {
   return (
     <>
       <Navbar setShowLoginModal={setShowLoginModal} setShowSignupModal={setShowSignupModal} setShowOrdersModal={setShowOrdersModal} />
-      <div style={{minHeight: '100vh', background: '#f0f8f0', padding: '2rem'}}>
+      <div className="proOuter" style={{minHeight: '100vh', background: '#f0f8f0', padding: '2rem'}}>
         <div style={{maxWidth: '1200px', margin: '0 auto'}}>
         
-        <div style={{background: 'white', borderRadius: '20px', padding: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)'}}>
-          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '3rem'}}>
+        <div className="proDetail" style={{background: 'white', borderRadius: '20px', padding: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)'}}>
+          <div className="proAllDetail" style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '3rem'}}>
             <div>
               <img src={product.image} alt={t.productNames[product.name] || product.name} style={{width: '100%', height: '400px', objectFit: 'cover', borderRadius: '15px', marginBottom: '1rem'}} />
               <div style={{display: 'flex', gap: '0.5rem', marginBottom: '1.5rem'}}>
@@ -174,7 +174,7 @@ function ProductDetailPage() {
                 </div>
               </div>
               
-              <div style={{display: 'flex', gap: '1rem'}}>
+              <div className="buyBtn" style={{display: 'flex', gap: '1rem'}}>
                 <button onClick={handleAddToCart} style={{flex: 1, padding: '1.2rem', background: 'linear-gradient(135deg, #228B22 0%, #32CD32 100%)', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontSize: '1.1rem', fontWeight: 'bold'}}>🛒 {t.addToCart}</button>
                 <button onClick={() => {
                   if (!authToken) {
@@ -187,7 +187,7 @@ function ProductDetailPage() {
               </div>
             </div>
             
-            <div>
+            <div className="proDetailInfo">
               <h1 style={{fontSize: '2.5rem', marginBottom: '1rem', color: '#2c5530'}}>{t.productNames[product.name] || product.name}</h1>
               
               <p style={{fontSize: '3rem', color: '#228B22', fontWeight: 'bold', margin: '1.5rem 0'}}>₹{product.price}/{t.kg}</p>
@@ -195,7 +195,6 @@ function ProductDetailPage() {
               <div style={{background: '#f0f8f0', padding: '1.5rem', borderRadius: '15px', marginBottom: '1.5rem'}}>
                 <p style={{margin: '0.7rem 0', fontSize: '1.1rem', color: product.quantity > 0 ? '#228B22' : '#dc3545', fontWeight: 'bold'}}>✓ {product.quantity > 0 ? t.inStock : t.outOfStock}</p>
                 <p style={{margin: '0.7rem 0', fontSize: '1.1rem'}}><strong>{t.category}:</strong> {t[product.category] || product.category}</p>
-                <p style={{margin: '0.7rem 0', fontSize: '1.1rem'}}><strong>{t.farmer}:</strong> {t.farmerNames[product.farmerName] || product.farmerName}</p>
                 <p style={{margin: '0.7rem 0', fontSize: '1.1rem'}}><strong>{t.location}:</strong> 📍 {t.locations[product.location] || product.location}</p>
                 <p style={{margin: '0.7rem 0', fontSize: '1.1rem'}}><strong>{t.quantity}:</strong> {product.quantity} {t.kg}</p>
               </div>
@@ -251,7 +250,6 @@ function ProductDetailPage() {
                           <p className="product-price">₹{similarProduct.price}/{t.kg}</p>
                           <p>{t.quantity}: {similarProduct.quantity} {t.kg}</p>
                           <p className="product-location">📍 {t.locations[similarProduct.location] || similarProduct.location}</p>
-                          <p>{t.farmer}: {t.farmerNames[similarProduct.farmerName] || similarProduct.farmerName}</p>
                           <button className="buy-btn" onClick={(e) => {
                             e.stopPropagation();
                             if (!authToken) {
@@ -410,7 +408,6 @@ function ProductDetailPage() {
                     <div style={{flex: 1}}>
                       <h4 style={{margin: '0 0 0.5rem 0'}}>{t.productNames[item.name] || item.name}</h4>
                       <p style={{margin: '0.2rem 0', fontSize: '0.85rem', color: '#666'}}>📍 {t.locations[item.location] || item.location}</p>
-                      <p style={{margin: '0.2rem 0', fontSize: '0.85rem', color: '#666'}}>{t.farmer}: {t.farmerNames[item.farmerName] || item.farmerName}</p>
                       <p style={{margin: '0.2rem 0', color: '#228B22', fontWeight: 'bold'}}>₹{item.price}/{t.kg}</p>
                     </div>
                     <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>

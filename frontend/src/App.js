@@ -20,6 +20,7 @@ function HomePage() {
   const [isSignupMode, setIsSignupMode] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showLangDropdown, setShowLangDropdown] = useState(false);
+  const [showLoginLangDropdown, setShowLoginLangDropdown] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
   const [showCartPage, setShowCartPage] = useState(false);
   const [authToken, setAuthToken] = useState(localStorage.getItem('authToken'));
@@ -317,7 +318,7 @@ function HomePage() {
         category: e.target.category.value,
         price: parseInt(e.target.price.value),
         quantity: parseInt(e.target.quantity.value),
-        location: `${e.target.city.value}, ${e.target.state.value}`,
+        location: `${e.target.sub_dist.value}, ${e.target.dist.value}`,
         farmerName: `${e.target.farmerFirstName.value} ${e.target.farmerMiddleName.value || ''} ${e.target.farmerLastName.value}`.replace(/\s+/g, ' ').trim(),
         language: language,
         image: imageUrl
@@ -689,7 +690,7 @@ function HomePage() {
               <span></span>
               <span></span>
             </button>
-<button onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', fontSize: '1.5rem', fontWeight: 'bold'}}>🌾FarmTrade</button>
+<button className="nav-brand-button" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', fontSize: '1.5rem', fontWeight: 'bold'}}>🌾FarmTrade</button>
           </div>
           <div className="nav-center">
             <ul className={`nav-menu ${showMobileMenu ? 'active' : ''}`}>
@@ -749,6 +750,7 @@ function HomePage() {
                   <button className="btn-login">{user.name.split(' ')[0]}</button>
                   {showUserMenu && (
                     <div 
+                      className='login-options'
                       style={{
                         position: 'absolute',
                         top: '100%',
@@ -765,8 +767,52 @@ function HomePage() {
                       onMouseEnter={() => setShowUserMenu(true)}
                       onMouseLeave={() => setShowUserMenu(false)}
                     >
+                      <div className="language-selector-dropdown" style={{position: 'relative'}}>
+                        <span className="current-lang" onClick={(e) => { e.stopPropagation(); setShowLoginLangDropdown(!showLoginLangDropdown); }} style={{cursor: 'pointer'}}>
+                          <img src={language === 'en' ? 'https://flagcdn.com/80x60/us.png' : 'https://flagcdn.com/80x60/in.png'} alt="flag" className="flag-img" style={{imageRendering: 'crisp-edges'}} />
+                          {language === 'en' ? 'EN' : language === 'hi' ? 'हिंदी' : 'मराठी'}
+                        </span>
+                        {showLoginLangDropdown && (
+                          <div className="lang-dropdown-inside" style={{position: 'absolute', right: '100%', top: 0, background: 'white', border: '2px solid #228B22', borderRadius: '8px', padding: '0.5rem', minWidth: '120px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', zIndex: 1001, marginRight: '5px'}}>
+                            <label onClick={() => { changeLanguage('en'); setShowLoginLangDropdown(false); }} style={{display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem', cursor: 'pointer', borderRadius: '4px', color: '#333'}}>
+                              <img src="https://flagcdn.com/80x60/us.png" alt="US" className="flag-img" style={{imageRendering: 'crisp-edges'}} /> English
+                            </label>
+                            <label onClick={() => { changeLanguage('hi'); setShowLoginLangDropdown(false); }} style={{display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem', cursor: 'pointer', borderRadius: '4px', color: '#333'}}>
+                              <img src="https://flagcdn.com/80x60/in.png" alt="India" className="flag-img" style={{imageRendering: 'crisp-edges'}} /> हिंदी
+                            </label>
+                            <label onClick={() => { changeLanguage('mr'); setShowLoginLangDropdown(false); }} style={{display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem', cursor: 'pointer', borderRadius: '4px', color: '#333'}}>
+                              <img src="https://flagcdn.com/80x60/in.png" alt="India" className="flag-img" style={{imageRendering: 'crisp-edges'}} /> मराठी
+                            </label>
+                          </div>
+                        )}
+                      </div>
                       <button 
-                        onClick={() => { setShowProfileModal(true); setShowUserMenu(false); }}
+                        className="cart-icon-login-options"
+                        onClick={() => { 
+                          setShowProfileModal(false); 
+                          setShowOrdersPage(false); 
+                          setShowCartPage(true);
+                          setShowUserMenu(false);
+                        }}
+                      >
+                        🛒 Cart
+                        {getCartCount() > 0 && (
+                          <span style={{background: '#dc3545', color: 'white', borderRadius: '50%', width: '18px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 'bold'}}>{getCartCount()}</span>
+                        )}
+                      </button>
+                      <button 
+                        className="orders-icon-login-options"
+                        onClick={() => { 
+                          setShowProfileModal(false); 
+                          setShowCartPage(false); 
+                          setShowOrdersPage(true);
+                          setShowUserMenu(false);
+                        }}
+                      >
+                        📦 Orders
+                      </button>
+                      <button 
+                        onClick={() => { setShowProfileModal(true); setShowUserMenu(false); setShowLoginLangDropdown(false); }}
                         style={{
                           width: '100%',
                           padding: '10px 15px',
@@ -781,22 +827,7 @@ function HomePage() {
                         👤 User Profile
                       </button>
                       <button 
-                        onClick={() => { setShowOrdersPage(true); setShowUserMenu(false); }}
-                        style={{
-                          width: '100%',
-                          padding: '10px 15px',
-                          background: 'none',
-                          border: 'none',
-                          borderBottom: '1px solid #eee',
-                          textAlign: 'left',
-                          cursor: 'pointer',
-                          color: '#333'
-                        }}
-                      >
-                        📦 Your Orders
-                      </button>
-                      <button 
-                        onClick={() => { setShowWishlistModal(true); setShowUserMenu(false); }}
+                        onClick={() => { setShowWishlistModal(true); setShowUserMenu(false); setShowLoginLangDropdown(false); }}
                         style={{
                           width: '100%',
                           padding: '10px 15px',
@@ -811,7 +842,7 @@ function HomePage() {
                         ❤️ Wish List
                       </button>
                       <button 
-                        onClick={() => { setShowSettingsModal(true); setShowUserMenu(false); }}
+                        onClick={() => { setShowSettingsModal(true); setShowUserMenu(false); setShowLoginLangDropdown(false); }}
                         style={{
                           width: '100%',
                           padding: '10px 15px',
@@ -826,21 +857,6 @@ function HomePage() {
                         ⚙️ Settings
                       </button>
                       <button 
-                        onClick={() => { setShowUserMenu(false); setShowLoginModal(true); setIsSignupMode(false); }}
-                        style={{
-                          width: '100%',
-                          padding: '10px 15px',
-                          background: 'none',
-                          border: 'none',
-                          borderBottom: '1px solid #eee',
-                          textAlign: 'left',
-                          cursor: 'pointer',
-                          color: '#333'
-                        }}
-                      >
-                        🔄 Switch Account
-                      </button>
-                      <button 
                         onClick={() => { 
                           setAuthToken(null); 
                           setUser(null); 
@@ -852,6 +868,7 @@ function HomePage() {
                           setShowProfileModal(false);
                           setShowCartPage(false);
                           setShowOrdersPage(false);
+                          setShowLoginLangDropdown(false);
                         }}
                         style={{
                           width: '100%',
@@ -926,7 +943,6 @@ function HomePage() {
                             <p className="product-price">₹{product.price}/{t.kg}</p>
                             <p>{t.quantity}: {product.quantity} {t.kg}</p>
                             <p className="product-location">📍 {t.locations[product.location] || product.location}</p>
-                            <p>{t.farmer}: {t.farmerNames[product.farmerName] || product.farmerName}</p>
                             <button className="buy-btn" onClick={(e) => {
                               e.stopPropagation();
                               if (!authToken) {
@@ -961,7 +977,6 @@ function HomePage() {
                         <p className="product-price">₹{product.price}/kg</p>
                         <p>{t.quantity}: {product.quantity} kg</p>
                         <p className="product-location">📍 {t.locations[product.location] || product.location}</p>
-                        <p>{t.farmer}: {t.farmerNames[product.farmerName] || product.farmerName}</p>
                         <button className="buy-btn">{t.buyNow}</button>
                       </div>
                     </div>
@@ -1026,7 +1041,6 @@ function HomePage() {
                       </h3>
                       <p className="product-price">₹{product.price}/{t.kg}</p>
                       <p className="product-meta">📍 {t.locations[product.location] || product.location} | {t.quantity}: {product.quantity} {t.kg}</p>
-                      <p className="product-farmer">{t.farmer}: {t.farmerNames[product.farmerName] || product.farmerName}</p>
                       <button className="buy-btn">{t.buyNow}</button>
                     </div>
                   </div>
@@ -1049,7 +1063,6 @@ function HomePage() {
                       <p className="product-price">₹{product.price}/kg</p>
                       <p>{t.quantity}: {product.quantity} kg</p>
                       <p className="product-location">📍 {t.locations[product.location] || product.location}</p>
-                      <p>{t.farmer}: {t.farmerNames[product.farmerName] || product.farmerName}</p>
                       <button className="buy-btn">{t.buyNow}</button>
                     </div>
                   </div>
@@ -1119,8 +1132,8 @@ function HomePage() {
             <div className="form-group">
               <label>{t.location}</label>
               <div style={{display: 'flex', gap: '1rem'}}>
-                <input type="text" name="city" placeholder={t.city} onInput={handleTextOnly} required style={{flex: 1}} />
-                <input type="text" name="state" placeholder={t.state} onInput={handleTextOnly} required style={{flex: 1}} />
+                <input type="text" name="sub_dist" placeholder={t.sub_dist} onInput={handleTextOnly} required style={{flex: 1}} />
+                <input type="text" name="dist" placeholder={t.dist} onInput={handleTextOnly} required style={{flex: 1}} />
               </div>
             </div>
             <button type="submit" className="btn-primary" style={{display: 'block', margin: '0 auto'}}>{t.listProduct}</button>
@@ -1349,7 +1362,6 @@ function HomePage() {
                     <div style={{flex: 1}}>
                       <h4 style={{margin: '0 0 0.5rem 0'}}>{t.productNames[item.name] || item.name}</h4>
                       <p style={{margin: '0.2rem 0', fontSize: '0.85rem', color: '#666'}}>📍 {t.locations[item.location] || item.location}</p>
-                      <p style={{margin: '0.2rem 0', fontSize: '0.85rem', color: '#666'}}>{t.farmer}: {t.farmerNames[item.farmerName] || item.farmerName}</p>
                       <p style={{margin: '0.2rem 0', color: '#228B22', fontWeight: 'bold'}}>₹{item.price}/{t.kg}</p>
                     </div>
                     <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
@@ -1385,7 +1397,6 @@ function HomePage() {
                       <div style={{flex: 1}}>
                         <h4 style={{margin: '0 0 0.8rem 0', fontSize: '1.3rem'}}>{t.productNames[item.name] || item.name}</h4>
                         <p style={{margin: '0.4rem 0', fontSize: '1rem', color: '#666'}}>📍 {t.locations[item.location] || item.location}</p>
-                        <p style={{margin: '0.4rem 0', fontSize: '1rem', color: '#666'}}>{t.farmer}: {t.farmerNames[item.farmerName] || item.farmerName}</p>
                         <p style={{margin: '0.4rem 0', color: '#228B22', fontWeight: 'bold', fontSize: '1.2rem'}}>₹{item.price}/{t.kg}</p>
                       </div>
                       <div style={{display: 'flex', flexDirection: 'column', gap: '0.8rem', alignItems: 'center'}}>
@@ -1942,7 +1953,7 @@ function HomePage() {
           <div className="modal-content" style={{maxWidth: '600px'}}>
             <span className="close" onClick={() => setShowAddressModal(false)}>&times;</span>
             <h2>{language === 'en' ? 'Edit Address' : language === 'hi' ? 'पता संपादित करें' : 'पत्ता संपादित करा'}</h2>
-            <form onSubmit={(e) => { e.preventDefault(); const formData = new FormData(e.target); const address = `${formData.get('firstName')} ${formData.get('middleName')} ${formData.get('lastName')}, ${formData.get('flat')}, ${formData.get('area')}, ${formData.get('landmark')}, ${formData.get('city')}, ${formData.get('state')}, ${formData.get('pincode')}, ${formData.get('country')}`; const hiddenInput = document.querySelector('input[name="profileAddress"]'); if (hiddenInput) hiddenInput.value = address; setUser({...user, address}); setShowAddressModal(false); }}>
+            <form onSubmit={(e) => { e.preventDefault(); const formData = new FormData(e.target); const address = `${formData.get('firstName')} ${formData.get('middleName')} ${formData.get('lastName')}, ${formData.get('flat')}, ${formData.get('area')}, ${formData.get('landmark')}, ${formData.get('sub_dist')}, ${formData.get('dist')}, ${formData.get('pincode')}, ${formData.get('country')}`; const hiddenInput = document.querySelector('input[name="profileAddress"]'); if (hiddenInput) hiddenInput.value = address; setUser({...user, address}); setShowAddressModal(false); }}>
               <div className="form-group">
                 <label>{language === 'en' ? 'Country/Region' : language === 'hi' ? 'देश/क्षेत्र' : 'देश/प्रदेश'}</label>
                 <input type="text" name="country" defaultValue="India" required style={{width: '100%', padding: '0.7rem', borderRadius: '8px', border: '2px solid #228B22'}} />
@@ -1976,16 +1987,16 @@ function HomePage() {
                 <input type="text" name="landmark" style={{width: '100%', padding: '0.7rem', borderRadius: '8px', border: '2px solid #228B22'}} />
               </div>
               <div className="form-group">
-                <label>{language === 'en' ? 'Town/City and State' : language === 'hi' ? 'शहर और राज्य' : 'शहर आणि राज्य'}</label>
+                <label>{language === 'en' ? 'Sub_dist/Taluka and Dist' : language === 'hi' ? 'उप-ज़िला और ज़िला' : 'तालुका आणि जिल्हा'}</label>
                 <div style={{display: 'flex', gap: '0.5rem'}}>
-                  <input type="text" name="city" placeholder={language === 'en' ? 'Town/City' : language === 'hi' ? 'शहर' : 'शहर'} required style={{flex: 1, padding: '0.7rem', borderRadius: '8px', border: '2px solid #228B22'}} />
-                  <select name="state" required style={{flex: 1, padding: '0.7rem', borderRadius: '8px', border: '2px solid #228B22'}}>
-                    <option value="">{language === 'en' ? 'Select State' : language === 'hi' ? 'राज्य चुनें' : 'राज्य निवडा'}</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Gujarat">Gujarat</option>
+                  <input type="text" name="sub_dist" placeholder={language === 'en' ? 'Sub_dist/Taluka' : language === 'hi' ? 'उप-ज़िला' : 'तालुका'} required style={{flex: 1, padding: '0.7rem', borderRadius: '8px', border: '2px solid #228B22'}} />
+                  <select name="dist" required style={{flex: 1, padding: '0.7rem', borderRadius: '8px', border: '2px solid #228B22'}}>
+                    <option value="">{language === 'en' ? 'Select District' : language === 'hi' ? 'ज़िला चुनें' : 'जिल्हा निवडा'}</option>
+                    <option value="Pusad">Pusad</option>
+                    {/* <option value="Gujarat">Gujarat</option>
                     <option value="Karnataka">Karnataka</option>
                     <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option> */}
                   </select>
                 </div>
               </div>

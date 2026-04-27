@@ -8,8 +8,8 @@ const AddressSchema = new mongoose.Schema({
   flat: { type: String, required: true },
   area: { type: String, required: true },
   landmark: { type: String },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
+  sub_dist: { type: String, required: true },
+  dist: { type: String, required: true },
   country: { type: String, default: 'India' },
   isDefault: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }
