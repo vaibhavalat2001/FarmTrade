@@ -690,7 +690,7 @@ function HomePage() {
               <span></span>
               <span></span>
             </button>
-<button className="nav-brand-button" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', fontSize: '1.5rem', fontWeight: 'bold'}}>🌾FarmTrade</button>
+<button className="nav-brand-button" onClick={(e) => { e.preventDefault(); if(showProfileModal) setShowProfileModal(false); if(showCartPage) setShowCartPage(false); if(showOrdersPage) setShowOrdersPage(false); setTimeout(() => document.getElementById('home')?.scrollIntoView({behavior: 'smooth'}), 100); }} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', fontSize: '1.5rem', fontWeight: 'bold'}}>👨🏻‍🌾ApnaKisan</button>
           </div>
           <div className="nav-center">
             <ul className={`nav-menu ${showMobileMenu ? 'active' : ''}`}>

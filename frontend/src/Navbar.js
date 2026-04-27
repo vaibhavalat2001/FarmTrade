@@ -49,7 +49,7 @@ function Navbar({ setShowLoginModal, setShowSignupModal, setShowCartModal, setSh
             <span></span>
             <span></span>
           </button>
-          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>🌾FarmTrade</a>
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>👨🏻‍🌾ApnaKisan</a>
         </div>
         <ul className={`nav-menu ${menuActive ? 'active' : ''}`}>
           <li><a href="/#home" onClick={(e) => { e.preventDefault(); navigate('/'); }}>{ t.home}</a></li>
